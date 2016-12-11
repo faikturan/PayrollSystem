@@ -23,6 +23,32 @@ public class PayrollSystemTest {
 		System.out.printf("%s\n%s: $%,2f\n\n", basePlusCommissionEmployee, "earned", 
 				basePlusCommissionEmployee.earnings());
 		
+		Employee employees[] = new Employee[4];
+		employees[0] = salariedEmployee;
+		employees[1] = hourlyEmployee;
+		employees[2] = commissionEmployee;
+		employees[3] = basePlusCommissionEmployee;
+		
+		System.out.println("Employees processed polymorphically:\n");
+		for (Employee currentEmployee : employees) {
+			if (currentEmployee instanceof BasePlusCommissionEmployee) {
+				BasePlusCommissionEmployee employee = 
+						(BasePlusCommissionEmployee) currentEmployee;
+				
+				double oldBaseSalary = employee.getBaseSalary();
+				employee.setBaseSalary(1.10 * oldBaseSalary);
+				System.out.printf(
+						"new base salary with 10%% increase is: $%,.2f\n",
+						employee.getBaseSalary());
+				System.out.printf(
+						"earned $%,.2f\n\n", currentEmployee.earnings());
+				for (int i = 0; i < employees.length; i++) {
+					System.out.printf("Employee %d is a %s\n", i,
+							employees[i].getClass().getName());
+				}
+			}
+			
+		}
 
 	}
 
